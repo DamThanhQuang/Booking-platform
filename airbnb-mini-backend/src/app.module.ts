@@ -9,6 +9,7 @@ import { ListingsModule } from './listings/listings.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { typeormConfig } from './config/typeorm.config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { typeormConfig } from './config/typeorm.config';
     ListingsModule,
     BookingsModule,
     PaymentModule,
-    ReviewsModule
+    ReviewsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { typeormConfig } from "../config/typeorm.config";
+import { typeormConfig } from "./typeorm.config";
 import * as dotenv from 'dotenv';
 
 dotenv.config();
