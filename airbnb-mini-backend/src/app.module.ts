@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import { PaymentModule } from './payments/payment.module';
+import { ListingsModule } from './listings/listings.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { typeormConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
@@ -10,22 +16,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
     }),
 
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get('DB_HOST'),
-        port: config.get('DB_PORT'),
-        username: config.get('DB_USERNAME'),
-        password: config.get('DB_PASSWORD'),
-        database: config.get('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        migrations: [__dirname + '/database/migrations/*{.ts,.js}'],
-        synchronize: false,
-        logging: true,
-      }),
-      inject: [ConfigService],
-    })
+    TypeOrmModule.forRoot(typeormConfig()),
+
+    UsersModule,
+    ListingsModule,
+    BookingsModule,
+    PaymentModule,
+    ReviewsModule
   ],
   controllers: [AppController],
   providers: [AppService],
